@@ -1,14 +1,14 @@
 import express from 'express';
-import { frutaRouter } from './routes/fruta.routes.js';
+import { equipamentoRouter } from './routes/equipamento.routes.js';
 
 const app = express();
 const port = 3000;
 
 app.use(express.json());
 
-app.use("/fruta", frutaRouter);
-
+app.use("/equipamento", equipamentoRouter);
+  
 app.listen(port, () => {
-  console.log(`App rodando em http://localhost:3000`);
+  console.log(`API rodando em http://localhost:3000`);
 })
 
