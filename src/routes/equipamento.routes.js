@@ -4,22 +4,25 @@ import { equipamentoService } from '../services/equipamento.services.js';
 export const equipamentoRouter = Router();
 
 //SELECT
-equipamentoRouter.get("/", async (req, res) => {
+equipamentoRouter.get("/equipamento", async (req, res) => {
   try {
     const equipamentos = await equipamentoService.listarEquipamentos()
     res.json(equipamentos)
   }catch (error) {
     console.error(error);
   }
+});
+//SELECT ÚNICO
+equipamentoRouter.get("/equipamento/:id", async (req, res) => {
   try {
     const equipamentos = await equipamentoService.buscarEquipamentoPorId(id)
     res.json(equipamentos)
   }catch (error) {
     console.error(error);
   }
-})
+});
 //INSERT
-equipamentoRouter.post("/", async (req, res) => {
+equipamentoRouter.post("/equipamento", async (req, res) => {
   try {
     const equipamentos = await equipamentoService.criarEquipamento({
       nome: "MacBook Pro",
@@ -31,13 +34,22 @@ equipamentoRouter.post("/", async (req, res) => {
   }catch (error) {
     console.error(error);
   }
-})
-//UPDATE
-equipamentoRouter.patch("/", async (req, res) => {
+});
+//UPDATE DISPONIVEL
+equipamentoRouter.patch("/equipamento/:id/disponivel", async (req, res) => {
   try {
-    const equipamentos = await equipamentoService.alterarDisponibilidadeEquipamento(id, disponivel)
+    const equipamentos = await equipamentoService.disponivel(req.params.id, req.body.disponivel)
     res.json(equipamentos)
   }catch (error) {
     console.error(error);
   }
-})
+});
+//UPDATE INDISPONIVEL
+equipamentoRouter.patch("/equipamento/:id/indisponivel", async (req, res) => {
+  try {
+    const equipamentos = await equipamentoService.indisponivel(req.params.id, req.body.disponivel)
+    res.json(equipamentos)
+  }catch (error) {
+    console.error(error);
+  }
+});

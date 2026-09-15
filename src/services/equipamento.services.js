@@ -6,7 +6,7 @@ class EquipamentoService {
         return res.rows;
     }
     async buscarEquipamentoPorId(id) {
-const res = await pool.query('SELECT * FROM equipamento WHERE id = $1', [id]);
+    const res = await pool.query('SELECT * FROM equipamento WHERE id = ?', [id]);
         return res.rows[0];
     }
     async criarEquipamento(equipamento) {
@@ -17,9 +17,16 @@ const res = await pool.query('SELECT * FROM equipamento WHERE id = $1', [id]);
         );
         return res.rows[0];
     }
-    async alterarDisponibilidadeEquipamento(id, disponivel) {
+    async indisponivel(id, disponivel) {
         const res = await pool.query(
-            'UPDATE equipamento SET disponivel = $1 WHERE id = $2 RETURNING *',
+            'UPDATE equipamento SET disponivel = false WHERE id = ? RETURNING *',
+            [disponivel, id]
+        );
+        return res.rows[0];
+    } 
+    async disponivel(id, disponivel) {
+        const res = await pool.query(
+            'UPDATE equipamento SET disponivel = true WHERE id = ? RETURNING *',
             [disponivel, id]
         );
         return res.rows[0];

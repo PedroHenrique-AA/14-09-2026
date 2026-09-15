@@ -6,7 +6,7 @@ const port = 3000;
 
 app.use(express.json());
 
-app.use("/equipamento", equipamentoRouter);
+app.use("/", equipamentoRouter);
   
 app.listen(port, () => {
   console.log(`API rodando em http://localhost:3000`);
